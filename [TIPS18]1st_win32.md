@@ -2,7 +2,7 @@
 
 [강좌 배너]
 
-## 1. Visual Studion 프로젝트 생성
+## 1. Visual Studio 프로젝트 생성
 
 앞으로 진행할 모든 Win32 프로그래밍은 Visual Studio에서 진행하게 된다.  
 먼저 Windows Desktop 응용 프로그램 프로젝트를 생성하는것을 알아보자.  
