@@ -104,7 +104,7 @@ RegisterClass(&wc);
 ### 2.2 윈도우 생성
 ```C++
 
-HWND hWnd = CreateWindow(my_class_name, L"Artoria First",        WS_OVERLAPPEDWINDOW, 100, 90, 400, 350, NULL, NULL, hInstance, NULL);
+HWND hWnd = CreateWindow(my_class_name, L"Artoria First",WS_OVERLAPPEDWINDOW, 100, 90, 400, 350, NULL, NULL, hInstance, NULL);
 
 ShowWindow(hWnd, nCmdShow);
 UpdateWindow(hWnd);
