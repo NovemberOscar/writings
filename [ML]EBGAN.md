@@ -5,3 +5,5 @@ http://dogfoottech.tistory.com/183
 https://en.wikipedia.org/wiki/Hinge_loss
 https://github.com/MagmaTart/Paper-Reading/blob/master/summarys/EBGAN.md
 https://arxiv.org/abs/1609.03126
+https://github.com/shekkizh/EBGAN.tensorflow
+https://github.com/buriburisuri/ebgan
