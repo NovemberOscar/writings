@@ -22,10 +22,18 @@ http://jaynewho.com/post/9
 
 오토인코더의 학습은 다음과 같이 이루어진다.
 
-블라블라
+1. 인풋과 히든 레이어의 가중치를 계산해 시그모이드 함수를 통과시킨다. 
+2. 1의 결과물과 출력 레이어의 가중치를 계산해 시그모이드 함수를 통과시킨다.
+3. 2의 값을 이용해 MSE(Mean Squarded Error)를 계산한다. 
+4. 3의 결과로 나온 loss 값을 SGD로 최적화시키고 
+
+오류역전파를 사용하여 가중치를 갱신한다. 
 
 오토인코더는 다음과 같은 여러개의 파생형을 가지고 있다.
 
-블라블라
+1. Stacked Auto Encoder
+2. Sparese Auto Encoder
+3. Denoising Auto Encoder
 
- 
+
+
