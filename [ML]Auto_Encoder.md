@@ -31,9 +31,12 @@ http://jaynewho.com/post/9
 
 오토인코더는 다음과 같은 여러개의 파생형을 가지고 있다.
 
-1. Stacked Auto Encoder
-2. Sparese Auto Encoder
+1. Stacked Auto Encoder  
+    오토인코더를 다층으로 만든것
+2. Sparese Auto Encoder  
+    히든 레이어 부분이 출력과 입력보다 크다
 3. Denoising Auto Encoder
+    
 
 
 
