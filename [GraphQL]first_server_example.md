@@ -5,7 +5,7 @@ GraphQL 서버를 만들려면 GraphQL API를 구성하는 요소들에 대해 �
 
 - 스키마: DB 스키마가 테이블과 릴레이션을 정의하는 것처럼 GraphQL 스키마는 뮤테이션, 쿼리, 타입과 Enum 등 GraphQL 시스템을 정의한다.
     - 쿼리: CRUD의 Read를 담당하는 부분이다
-        - 필드: 쿼리의 속성, DB의 테이블 역할을 수행한다.
+        - 필드: 쿼리의 속성, DB의 테이블 역할을 수행하고 반환값을 결정한다.
     - 뮤테이션: CRUD의 Create, Update, Delete를 담당한다
 - 리솔버: 쿼리나 뮤테이션 요청이 들어올 때마다 요청에 맞게 리턴값을 만들어 내는 로직 부분이다.
 
@@ -188,7 +188,7 @@ class Mutation(graphene.ObjectType):
 
 ## 스키마 만들기
 
-지금까지 스키마를 구성하는 쿼리와 뮤테이션을 만들었으니 이제 최종 스키마에 이것들을 연결해 보자. 우리의 스키마는 스키마 언어로 다음과 같이 표현된다
+지금까지 스키마를 구성하는 쿼리와 뮤테이션을 만들었으니 이제 루트 스키마에 연결해 보자. 우리의 스키마는 스키마 언어로 다음과 같이 표현된다
 ```
 schema {
     query: Query
@@ -209,6 +209,7 @@ schema = graphene.Schema(query=Query, mutation=Mutation)
 이제 이 스키마를 Flask 서버로 서비스하기 위해 app.py에 다음의 코드를 작성한 후 실행하고 localhost:5000에 접속하여 GraphiQL로 우리의 첫 GraphQL API를 만나보자.
 ```python
 from flask import Flask
+from .schema import schema
 
 app = Flask(__name__)
 
@@ -218,6 +219,4 @@ if __name__ == "__main__"
     app.run(debug=True)
 ```
 
-## 테스트하기
-
-다음 포스트에서는 좀더 기능을 추가해서 MongoDB를 연동해볼 것이다.
+다음 포스트에서는 본격적으로 도서관 시스템을 만들기 시작하며 MongoDB를 연동해볼 것이다.
