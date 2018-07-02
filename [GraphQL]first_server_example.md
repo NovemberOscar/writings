@@ -54,14 +54,11 @@ Werkzeug==0.14.1
 지금 만들어 볼 Hello World 서버의 구조는 다음과 같다.
 ```
 /
-    /app
-        /graphql_view
-            fields.py
-            query.py
-            mutaion.py
-            __init__.py
-        __init__.py
-    server.py
+    - fields.py
+    - query.py
+    - mutaion.py
+    - schema.py
+    - server.py
 ```
 이 글에서는 간단한 Hello World 예제를 만들어 보지만 시리즈를 진행해 나가면서 도서관 시스템을 완성할 것이다.
 
@@ -183,10 +180,43 @@ class setDefaultMutation(graphene.Mutation):
         default_value = name
 
         return "Success"
+
+class Mutation(graphene.ObjectType):
+    set_default = setDefaultMutation.Field()
         
 ```
 
 ## 스키마 만들기
+
+지금까지 스키마를 구성하는 쿼리와 뮤테이션을 만들었으니 이제 최종 스키마에 이것들을 연결해 보자. 우리의 스키마는 스키마 언어로 다음과 같이 표현된다
+```
+schema {
+    query: Query
+    mutation: Mutation
+}
+```
+
+schema.py에 코드로 나타내 보면 다음과 같다.
+```python
+import graphene
+from flask_graphql import GraphQLView
+from .mutation import Mutation
+from .query import Query
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
+```
+
+이제 이 스키마를 Flask 서버로 서비스하기 위해 app.py에 다음의 코드를 작성한 후 실행하고 localhost:5000에 접속하여 GraphiQL로 우리의 첫 GraphQL API를 만나보자.
+```python
+from flask import Flask
+
+app = Flask(__name__)
+
+app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=schema, graphiql=True))
+
+if __name__ == "__main__"
+    app.run(debug=True)
+```
 
 ## 테스트하기
 
