@@ -41,4 +41,4 @@ Flask-GraphQL-Auth의 jwt_required나 jwt_refresh_token_required 데코레이터
 사용자 클레임을 비롯해 좀 더 Flask-GraphQL-Auth에 대해 알아보고 싶다면 온라인 도큐멘테이션을 찾아보자. 
 https://flask-graphql-auth.readthedocs.io/en/latest/
 
-PS) 혹시 해결할 수 있는 아이디어가 있으신 분은 이슈나 PR을 부탁드립니다!
+PS) **혹시 해결할 수 있는 아이디어가 있으신 분은 이슈나 PR을 부탁드립니다!**
