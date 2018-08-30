@@ -68,7 +68,7 @@ app.register_blueprint(test.bp)  # 블루프린트 등록
 다음은 `MethodView`를 상속받아 유니코드 인코딩용 함수를 포함한 베이스 뷰 클래스를 만들어 활용하는 예시이다. 베이스 뷰에 공통적인 코드를 작성하여 각각의 뷰 클래스는 코드가 줄어드는것을 알 수 있다. 
 
 ```py
-from flak import Flask, Response
+from flask import Flask, Response
 from flask.view import MethodView
 import ujson
 
