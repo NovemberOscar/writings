@@ -309,7 +309,7 @@ def aft(r):
 
 @app.teardown_request
 def tdn(r):
-    print("TEARDOWN")  # 에러가 발생해도 실행됨. 여기서 r은 Exception 객체
+    print("TEAR DOWN")  # 에러가 발생해도 실행됨. 여기서 r은 Exception 객체
 ```
 
 마지막으로 after_this_request라는 특별한 훅이 존재한다. 모든 리퀘스트 컨텍스트에서 사용되는 after_request 와 달리 이 훅은 현재 진행되는 리퀘스트 컨택스트에서만 실행되는 함수를 등록한다. 데코레이터에서 after_this_request 훅을 사용하면 뷰 펑션 실행 후에 사용되는 코드를 삽입할 수 있다. 
@@ -347,12 +347,61 @@ def secret_page():
 4. after_this_request와 데코레이터를 조합해 현재 진행되는 리퀘스트 컨택스트에서만 실행될 코드를 데코레이터를 이용해 추가하자.
 
 ## BETTER WAY 06: TDD와 CI 그리고 깃허브를 사용하자
-지금까지는 Flask의 내부적인 기능에 관해서만 알아보았다. 
+TDD, Test Driven Development는 반복적인 테스팅을 이용한 소프트웨어 개발 기법이다. 먼저 작은 테스트들을 만들고, 그 테스트들을 통과하는 코드를 만들고 개선하는 방식으로 개발을 진행하게 된다. 테스트를 먼저 작성한 후 코드를 짜게 되면 깔끔한 코드를 작성할 수 있게 된다. 
+
+**TDD with 백앤드**
+1. URI와 리퀘스트 리스폰스를 포함한 API 명세를 작성
+2. 명세를 통해 각 URI에 대해 테스트 케이스를 작성
+3. 더미 데이터를 보내는 코드를 작성
+4. 실제 코드를 작성
+
+파이썬의 테스트 라이브러리로 unittest와 pytest가 존재하는데 여기선 unittest 버전으로 설명할 것이다.
+
+유닛테스트는 TestCase를 상속받아 만든 클래스에 셋업 코드와 테스트 코드, 티어다운 코드를 작성하여 테스트를 구성한다.
+```py
+from unittest import TestCase as TC
+
+class TestCase(TC):
+    def setUp(self):
+        <set up code>
+    def test_something(self):
+        <test code>
+    def tearDown(self):
+        <teardown code>
+```
+플라스크 웹서버를 테스팅 할 때는 엔드포인트별로 요청을 날려 응답을 검증하는데 이를 위해 플라스크 앱 객체에서 제공하는 테스트 클라이언트를 사용하도록 하자. 또한 셋업이나 티어다운, 더미 데이터 삽입 등 기본적인 테스트 환경 코드의 중복을 막기 위해 베이스 테스트케이스를 만들자
+
+```py
+from datetime import datetime
+from unittest import TestCase as TC
+from app import create_app
+from config.test import TestConfig
+
+class TCBase(TC):
+    def __init__(self, *args, **kwargs):
+        self.app = create_app(TestConfig)
+        self.client = self.app.test_client()
+
+        ...  # 데이터베이스 연결 등 기반 설정
+
+    def _create_fake_data(self):
+        pass  #  DB에 더미 데이터를 삽입
+
+    def _generate_tokens(self):
+        pass  # JWT 토큰 생성
+
+    def setUp(self):
+        pass  # 공통 셋업 코드 ex) 토큰 가져오기
+
+    def tearDown(self):
+        pass  # 공통 티어다운 코드 ex) DB 테이블 드롭
+
+    def request(self, method: function, target_url_rule, token=None, *args, **kwargs):
+        pass  # 리퀘스트 헬퍼 메소드 ex) 토큰을 헤더에 자동 삽입
+```
+이 테스트 케이스를 상속받아서 테스트 케이스를 만들고 
+
+
 
 ## BETTER WAY 07: 자주 사용하는 코드를 플라스크 익스텐션으로 만들어 사용하자
-
-## BETTER WAY 08: 플라스크는 항상 답이 아니다.
 <!-- 알쓸신잡 -->
-
-## 장고였음 이런거 못함 ㅅㄱ
-<!-- 땡스 조민규 + 플-멘 -->¬
