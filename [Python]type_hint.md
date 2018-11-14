@@ -248,3 +248,27 @@ class MyIter:
         ...
 ```
 
+### 전방 참조
+현재(3.7 버전까지)의 타입 힌트 기능을 다음과 같은 코드를 사용할 수 없다. 힌트를 평가할 때 아직 정의되지 않은 타입을 사용할 수 없기 때문이다.
+```py
+class Node:
+    def __init__(self, right: Node, left: Node):
+        # 아직 Node의 정의가 끝나지 않아 오류가 발생한다.
+        self.right = right
+        self.left = left
+```
+이 문제에는 두가지의 해결 방안이 존재한다. 타입 정의를 나중에 확인할 수있는 문자열 리터럴로 처리하던가, `from __future__ import annotations` 구문(파이썬 3.7 만 해당)을 파일 맨 위에 삽입하여 타입 힌트에 대한 평가를 lazy 하게 함으로써 해결할 수 있다.
+```py
+class Node:
+    def __init__(self, right: 'Node', left: 'Node'):
+        self.right = right
+        self.left = left
+```
+```py
+from __future__ import annotations
+
+class Node:
+    def __init__(self, right: Node, left: Node):
+        self.right = right
+        self.left = left
+```
