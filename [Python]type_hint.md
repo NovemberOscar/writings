@@ -40,3 +40,31 @@ def greeting(name: str) -> str:
 
 사실 타입 힌트는 코드에 붙은 주석에 가깝다. 독스트링을 __doc__을 사용하여 가져올 수 있는 것 처럼 타입 힌트 정보 또한 __annotations__속성을 통하여 타입 힌트를 가져올 수 있다.
 
+## 타입 힌트를 표현하는 문법
+파이썬의 타입 힌트는 typing 모듈을 사용하여 작성할 수 있다. 
+
+### 간단한 타입 표기
+먼저 함수 선언부에 관한 타입 힌트는 인수 뒤에 콜론을 붙여서 인수의 타입 힌트를 붙이고, 괄호 뒤 콜론 전에 "-> 타입" 을 붙이는 형식으로 반환값에 대한 타입 힌트를 지정할 수 있다.
+```py
+def make_post(title: str, author_id: int=0) -> str:
+    ...
+```
+변수의 타입은 함수 인자와 비슷한 형식으로 힌트를 붙일 수 있다.
+```py
+num: int = 34  # int type
+str: string = "Hello types!"  # str type
+test: Test = Test(num)  # class "Test" type
+```
+클래스 멤버 변수도 변수와 비슷하다.
+```py
+class A:
+    x: int  # int type
+    y: str  # str type
+    z: float  # float type
+
+    def __init__(self, x: int, y: str, z: float):
+        self.x = x
+        self.y = y
+        self.z = z
+```
+
