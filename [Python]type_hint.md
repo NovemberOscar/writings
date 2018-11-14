@@ -66,6 +66,22 @@ class A:
         self.y = y
         self.z = z
 ```
+### 특별한 타입들
+타이핑 모듈에는 특별한 타입들 몇가지가 존재한다. 
+그 중 Any와 NoReturn에 대해 소개한다.
+
+Any는 말 그대로 모든 타입을 허용한다.
+```py
+x: Any = 3  # 된다
+y: Any = "anyone"  # 된다
+```
+NoReturn은 리턴이 되는것이 아니라 예외를 발생시키는 등의 경우에 사용한다.
+```py
+from typing import NoReturn
+
+def stop() -> NoReturn:
+    raise RuntimeError('no way')
+```
 
 ### 타입 별칭
 타입 별칭은 간단하다. 타입을 새 변수에 대입하면 그 변수는 타입 별칭으로써 기능한다. 다음은 간단한 예시이다.
