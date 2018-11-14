@@ -90,3 +90,33 @@ def inproduct(v: Vector[T]) -> T:  # 벡터의 내적
     return sum(x*y for x, y in v)
 ```
 
+### 객체로써의 함수의 타입
+함수를 작성하다 보면 함수를 반환하는 함수 또는 함수를  함수를 작성하게 될 것이다. 또는 변수에 함수 객체를 할당할 수도 있다. 이러한 객체로써의 함수의 타입은 Callable을 사용하여 표현할 수 있다.
+
+```py
+from typing import Callable
+
+def callback_loader(callback: Callable[[float], int]) -> int:
+    # float을 인수로 받아 int 형을 반환하는 콜백을 인수로 받는다.
+    return callback(3.7)
+```
+```py
+from typing import Callable
+
+def closure(txt: str) -> Callable[[], str]:
+    # 아무 인수도 받지 않고 str 형을 반환하는 함수를 반환한다.
+    def inner_func() -> str:
+        return txt
+
+    return inner_func
+```
+```py
+from typing import Callable
+
+def func(txt: str) -> str:
+    return txt
+
+x: Callable[[str], str] = func  # 함수 객체를 할당
+```
+
+
