@@ -232,3 +232,19 @@ def dispencer(select: int) -> Union[Coke, Soda]:
     ...
 ```
 
+### 오버로딩
+오버로딩이란 같은 함수 이름을 가지지만 인수가 다른 함수를 선언할 수 있는 방법을 말한다. 원래대로라면 파이썬은 오버로딩을 지원하지 않지만 typing 모듈의 @overload 데코레이터를 사용하여 오버로딩을 사용할 수 있다.
+
+```py
+from typing import overload
+
+class MyIter:
+    ...
+    @overload
+    def __getitem__(self, i: int) -> int:
+        ...
+    @overload
+    def __getitem__(self, s: slice) -> bytes:
+        ...
+```
+
