@@ -272,3 +272,31 @@ class Node:
         self.right = right
         self.left = left
 ```
+### 제네레이터와 코루틴
+제네레이터 함수는 `Generator[yield_type, send_type, return_type]`의 형식으로 타입 힌트를 가질 수 있다.
+
+```py
+def echo_round() -> Generator[int, float, str]:
+    res = yield
+    while res:
+        res = yield round(res)
+    return 'OK'
+```
+그러나 비동기 함수(코루틴)은 조금 특별하다. 비동기 함수를 하나 선언해 보자.
+```py
+async def test():
+    return "Hello async!"
+```
+만약 이 함수가 무조건 await 된다면 이 함수의 결과는 str 타입을 가지게 될 것이지만 await 되지 않는다면 코루틴 자체를 반환하게 될 것이다. 
+ 비동기 함수의 타입 힌트는 다음과 같이 사용하자.
+ ```py
+ from typing import Corutine  # Generator와 사용법은 같다.
+
+ async def test() -> Corutine[Any, Any, str]:
+    return "Hello async!"
+
+async def run():
+    res: Corutine[Any, Any, str] = test()
+    res_2: str = await test()
+ ```
+
