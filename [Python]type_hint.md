@@ -288,15 +288,27 @@ async def test():
     return "Hello async!"
 ```
 만약 이 함수가 무조건 await 된다면 이 함수의 결과는 str 타입을 가지게 될 것이지만 await 되지 않는다면 코루틴 자체를 반환하게 될 것이다. 
- 비동기 함수의 타입 힌트는 다음과 같이 사용하자.
- ```py
- from typing import Corutine  # Generator와 사용법은 같다.
+비동기 함수의 타입 힌트는 다음과 같이 사용하자.
+```py
+from typing import Corutine  # Generator와 사용법은 같다.
 
- async def test() -> Corutine[Any, Any, str]:
+async def test() -> Corutine[Any, Any, str]:
     return "Hello async!"
 
 async def run():
     res: Corutine[Any, Any, str] = test()
     res_2: str = await test()
- ```
+```
+이를 용용해서 비동기 함수 객체를 표현할 수도 있다
+```py
+from typing import Corutine, Callable
+
+async def test() -> Corutine[Any, Any, str]:
+    return "Hello async!"
+
+x: Callable[[], Corutine[Any, Any, str]] = test
+```
+
+## 마치면서
+여기까지 파이썬의 타입 힌트에 대해 알아보았다. PEP 484에서 밝히듯 타입 힌트는 파이썬이 정적 언어로 쓰이기 위한 것도 아니고, 필수도 아니다. 그러나 적절한 도구와 같이 사용한다면 점점 커지는 코드를 만들어 가는 것을 도와줄 수 있을 것이다.
 
