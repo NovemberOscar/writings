@@ -119,4 +119,50 @@ def func(txt: str) -> str:
 x: Callable[[str], str] = func  # 함수 객체를 할당
 ```
 
+### 클래스 타입
+파이썬의 타입 힌트는 특정한 클래스라는 것 또한 명시할 수 있다.
+```py
+class A:
+    def print_all() -> None:
+        ...
+
+def print_class(cls_obj: A) -> None:
+    cls_obg.print_all()
+
+a = A()
+print_class(a)  # 정적 검사가 통과할 것이다.
+```
+그런데 만약 상속받은 하위 클래스도 받아들이려면 어떻게 해야 할까? 
+```py
+class A:
+    def print_all() -> None:
+        ...
+
+class B(A):
+    ...
+
+def print_class(cls_obj: A) -> None:
+    cls_obg.print_all()
+
+b = B()
+print_class(b)  # 정적 검사기는 타입이 일치하지 않는다고 경고할 것이다.
+```
+이럴 때를 위해 Type[C] 문법이 준비되어 있다. (C는  클래스를 나타낸다) 그냥 C를 타입으로 사용하면 C의 인스턴스만을 받아들이지만 Type[C]을 사용하면 상위 클래스를 상속받은 모든 하위 클래스 또한 허용하게 된다.
+```py
+from typing import Type
+
+class A:
+    def print_all() -> None:
+        ...
+
+class B(A):
+    ...
+
+def print_class(cls_obj: Type[A]) -> None:
+    # A의 하위 클래스도 허용
+    cls_obg.print_all()
+
+b = B()
+print_class(b)  # 정적 검사가 통과할 것이다.
+```
 
