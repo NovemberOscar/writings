@@ -165,4 +165,42 @@ def print_class(cls_obj: Type[A]) -> None:
 b = B()
 print_class(b)  # 정적 검사가 통과할 것이다.
 ```
+### 제네릭
+데이터 형식에 의존하지 않고 인자, 변수 또는 반환값 등이 여러 다른 데이터 타입들을 가질 수 있는 방식을 제네릭이라고 한다. 
+
+파이썬의 타입 힌트 기능에서도 제네릭 표현이 가능하다.
+
+다음은 간단한 제네릭을 사용한 클래스의 선언과 사용의 예시이다.
+```py
+from typing import TypeVar, Generic, List
+
+T = TypeVar('T')
+
+class C(Generic[T]):
+    def __init__(self) -> None:
+        self.ls: List[T] = []
+        # T 타입의 리스트를 초기화한다
+    
+    def put(item: T) -> None:
+        # T 타입을 인수로 받는다
+        self.ls.append(item)
+
+    def get(index: int) -> T:
+        # T 타입을 반환한다
+        return self.ls[index]
+
+c = C[str]()  # 타입은  str로 결정된다
+c.put("hello")  # 아무런 문제가 없다
+c.get(0)  # str 타입의 값을 반환할 것으로 기대된다.
+```
+함수에도 제네릭을 적용할 수 있다.
+```py
+from typing import TypeVar, Sequence
+
+T = TypeVar('T')
+
+def first(sqnce: Sequence[T]) -> T:
+    # 입력받은 시퀀스 객체의 타입에 따라 반환 타입도 결정된다.
+    return sqnce[0]
+```
 
