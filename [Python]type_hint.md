@@ -68,3 +68,25 @@ class A:
         self.z = z
 ```
 
+### 타입 별칭
+타입 별칭은 간단하다. 타입을 새 변수에 대입하면 그 변수는 타입 별칭으로써 기능한다. 다음은 간단한 예시이다.
+```py
+from typing import List
+
+url_ls = List[str]  # List with str type 
+crawling_result = List[str]  # List with str type 
+
+def crawler(urls: url_ls) -> crawling_result:
+    ...
+```
+물론 더욱 복잡한 타입 별칭도 만들 수 있다. 이 코드는 제네릭을 활용한 것으로 추후에 더 알아볼 것이다.
+```py
+from typing import TypeVar, Tuple, Iterable
+
+T = TypeVar('T', int, float)
+Vector = Iterable[Tuple[T, T]]
+
+def inproduct(v: Vector[T]) -> T:  # 벡터의 내적
+    return sum(x*y for x, y in v)
+```
+
