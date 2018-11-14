@@ -219,3 +219,16 @@ def first(sqnce: Sequence[T]) -> T:
     return sqnce[0]
 ```
 
+### 유니온
+제네릭과 달리 허용 가능한 타입의 범위가 정해져 있다면 Union을 사용할 수 있다. 
+Union은 제한된 타입의 집합이다. Union이 타입 힌트로 사용된다면 해당 변수-인수-리턴값은 해당 Union에 속해있는 타입을 가질수 있다고 표현된다 
+```py
+from typing import Union
+
+...
+
+def dispencer(select: int) -> Union[Coke, Soda]:
+    # Coke를 리턴할 수도 있고, Soda를 리턴할 수도 있다.
+    ...
+```
+
