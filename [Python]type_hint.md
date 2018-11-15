@@ -233,19 +233,28 @@ def dispencer(select: int) -> Union[Coke, Soda]:
 ```
 
 ### 오버로딩
-오버로딩이란 같은 함수 이름을 가지지만 인수가 다른 함수를 선언할 수 있는 방법을 말한다. 원래대로라면 파이썬은 오버로딩을 지원하지 않지만 typing 모듈의 @overload 데코레이터를 사용하여 오버로딩을 사용할 수 있다.
+오버로딩이란 같은 함수 이름을 가지지만 인수가 다른 함수를 선언할 수 있는 방법을 말한다. 물론 파이썬은 오버로딩을 지원하지 않지만 typing 모듈의 @overload 데코레이터를 사용하여 오버로딩이 가능한 것**처럼** 보이게 할 수 있다.
+
+오버로드 데코레이터를 사용하기 위해서는 오버로드 데코레이터를 적용한 함수 원형을 만들고, 오버로드 데코레이터가 적용되지 않은 본체를 만들어야 한다.
+
+오버로드 데코레이터가 적용된 코드를 실행시켜 보면  데코레이터가 없는 본체만 실행된다.
 
 ```py
-from typing import overload
+from typing import overload, Union
 
 class MyIter:
-    ...
+
     @overload
-    def __getitem__(self, i: int) -> int:
-        ...
+    def __getitem__(self, i: int) -> int: ...
+    
     @overload
-    def __getitem__(self, s: slice) -> bytes:
-        ...
+    def __getitem__(self, s: slice) -> bytes: ...
+    
+    def __getitem__(self, x: Union[int, slice]) -> Union[int, bytes]:
+        if isinstance(x, int):
+            pass
+        elif isinstance(x, slice):
+            pass
 ```
 
 ### 전방 참조
